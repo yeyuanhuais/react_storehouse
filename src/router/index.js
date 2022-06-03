@@ -20,4 +20,9 @@ export const InRouter = [
     key: "list",
     component: lazy(() => import("pages/list")),
   },
+  {
+    path: "/editor",
+    key: "editor",
+    component: lazy(() => import("pages/editor")),
+  },
 ];

@@ -8,6 +8,7 @@ import { CollapsedContext } from "components/context_manager";
 const { SubMenu } = Menu;
 const MenuList = [
   { name: "首页", path: "/home", key: "100000", icon: "icon-shouye" },
+  { name: "编辑器", path: "/editor", key: "200000", icon: "icon-fuwenbenbianjiqi" },
   {
     name: "子菜单",
     key: "102000",
@@ -22,8 +23,9 @@ export default () => {
   const { collapsed } = useContext(CollapsedContext);
   const routerLoaction = useLocation();
   const routerHistory = useHistory();
-  const { defaultSelectedKeys } = useMemo(() => {
+  const { defaultSelectedKeys, defaultOpenKeys } = useMemo(() => {
     let selectkey = [];
+    let openkey = [];
     for (let i = 0; i < MenuList.length; i++) {
       let item = MenuList[i];
       if (routerLoaction.pathname.indexOf(item.path) === 0) {
@@ -35,6 +37,7 @@ export default () => {
           const child = item.children[y];
           if (routerLoaction.pathname.indexOf(child.path) === 0) {
             selectkey.push(child.key);
+            openkey.push(item.key);
             break;
           }
         }
@@ -42,8 +45,9 @@ export default () => {
     }
     return {
       defaultSelectedKeys: selectkey,
+      defaultOpenKeys: openkey,
     };
-  }, [routerLoaction]);
+  }, [MenuList, routerLoaction.pathname]);
 
   /* ========== 跳转 ========== */
   const goto = (path) => {
@@ -74,26 +78,11 @@ export default () => {
           <div className={style.scrollbar}>
             <div className={style.scroll_wrap}>
               <Menu
-                defaultSelectedKeys={defaultSelectedKeys}
-                defaultOpenKeys={["101000", "102000"]}
+                selectedKeys={defaultSelectedKeys}
+                defaultOpenKeys={defaultOpenKeys}
                 mode="inline"
                 theme="dark"
                 inlineCollapsed={collapsed}
-                expandIcon={({ isOpen }) => {
-                  if (!collapsed) {
-                    return !isOpen ? (
-                      <span className={style.arrow}>
-                        <MyIcon type="icon-jia" />
-                      </span>
-                    ) : (
-                      <span className={style.arrow}>
-                        <MyIcon type="icon-jian" />
-                      </span>
-                    );
-                  } else {
-                    return null;
-                  }
-                }}
               >
                 {MenuList.map((item) => {
                   if (!item.children || item.children == 0) {
