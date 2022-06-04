@@ -4,7 +4,7 @@ import Emoji from "../emoji_comps/emoji";
 import Symbol from "./symbol";
 import MyIcon from "components/my_icon";
 import SortURL from "../shorturl_comps/sortURL";
-import SelectTemp from "components/sms_common/template/stencil";
+import SelectTemp from "../temp_comps";
 import style from "../style.less";
 import reg from "./reg";
 export default (props) => {

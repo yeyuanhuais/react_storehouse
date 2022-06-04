@@ -1,9 +1,8 @@
 import React, { useState, useMemo, useCallback, useEffect } from "react";
 import { Button, Input, Table, Space, Checkbox, Empty } from "antd";
 import { CheckOutlined } from "@ant-design/icons";
-import MyIcon from "components/my_icon";
+import MyIcon from "@/components/my_icon";
 import axios from "@/plugins/axios";
-import { useTranslation } from "react-i18next";
 
 /* ==================================================
  * 远程搜索下拉元素
@@ -24,20 +23,17 @@ const RemoveEle = ({ headItem, setSelectedKeys, selectedKeys = [], confirm, clea
   }, [list, headItem.remoteParams]);
 
   /* ============== 远程获得数据 ============== */
-  const getRemoveData = useCallback(
-    (keyword) => {
-      let params = {};
-      setFetching(true);
-      params[headItem.remoteParams.key] = keyword;
-      axios.post(headItem.remoteParams.url || "", params).then((res) => {
-        setFetching(false);
-        if (res.code === "000000") {
-          setList(res.data.list || res.data);
-        }
-      });
-    },
-    [headItem.remoteParams.key, headItem.remoteParams.url]
-  );
+  const getRemoveData = useCallback((keyword) => {
+    let params = {};
+    setFetching(true);
+    params[headItem.remoteParams.key] = keyword;
+    axios.post(headItem.remoteParams.url || "", params).then((res) => {
+      setFetching(false);
+      if (res.code === "000000") {
+        setList(res.data.list || res.data);
+      }
+    });
+  }, [headItem.remoteParams.key, headItem.remoteParams.url]);
 
   useEffect(() => {
     getRemoveData("");
@@ -90,7 +86,6 @@ const RemoveEle = ({ headItem, setSelectedKeys, selectedKeys = [], confirm, clea
 };
 
 export default (props) => {
-  const { t } = useTranslation();
   const [tb_filters, setTbFilters] = useState({}); //定义原始筛选项
   const [tb_page, setTbPage] = useState({}); // 翻页数据
   const [tb_sorter, setTbSorter] = useState({}); // 排序数据
@@ -111,8 +106,9 @@ export default (props) => {
       //如果有表头名称，就查看是否设置过localStorage
       try {
         defaultTableHeader = JSON.parse(localStorage.getItem(setTableKey));
-        // eslint-disable-next-line no-empty
-      } catch (error) {}
+      } catch (error) {
+        console.log("%c error", "font-size:13px; background:pink; color:#bf2c9f;", error);
+      }
     }
     selectColums(defaultTableHeader);
   }, [props.columns, headColumns, setTableKey]);
@@ -143,8 +139,6 @@ export default (props) => {
       if (setTableKey) {
         //如果有表格设置的键值name属性就存储localstore
         localStorage.setItem(setTableKey, JSON.stringify(originalColums));
-        // eslint-disable-next-line no-empty
-      } else {
       }
       confirm();
     },
@@ -178,19 +172,11 @@ export default (props) => {
               placeholder={`请输入${item.title}关键词`}
               value={selectedKeys[0]}
               onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
-              onPressEnter={() => {
-                confirm();
-              }}
+              onPressEnter={confirm}
               style={{ width: 240, marginBottom: 8, display: "block" }}
             />
             <Space>
-              <Button
-                type="primary"
-                onClick={() => {
-                  confirm();
-                }}
-                size="small"
-              >
+              <Button type="primary" onClick={confirm} size="small">
                 搜索
               </Button>
               <Button onClick={clearFilters} size="small" type="text">
@@ -210,7 +196,7 @@ export default (props) => {
           <div className="settableheader">
             <h4>自定义表头</h4>
             {headCheckbox()}
-            <div className="setTablebtn">
+            {/* <div className="setTablebtn">
               <Button onClick={clearFilters} size="small">
                 取消
               </Button>
@@ -224,7 +210,7 @@ export default (props) => {
               >
                 确定
               </Button>
-            </div>
+            </div> */}
           </div>
         );
         item.filterIcon = () => <MyIcon type="biaotoushezhi" style={{ color: "#666A77", fontSize: 14 }} />;
@@ -236,7 +222,7 @@ export default (props) => {
       return item;
     });
     return resultProps;
-  }, [props, originalColums, headCheckbox, setTableHeader, tb_filters]);
+  }, [props, originalColums, headCheckbox, tb_filters]);
 
   /* 改变表格筛选数据，翻页等数据时 */
   /* ================================================== */
@@ -361,7 +347,7 @@ export default (props) => {
               showQuickJumper: true,
               showSizeChanger: true,
               showTotal(total, range) {
-                return `${t("components.with")} ${total} ${t("components.strip_data")}`;
+                return `共 ${total} 条数据`;
               },
               showTitle: true,
             }

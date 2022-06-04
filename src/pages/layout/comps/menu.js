@@ -1,28 +1,51 @@
-import React, { useState, useContext, useMemo } from "react";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import React, { useCallback, useContext, useMemo } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Menu, Drawer } from "antd";
 import MyIcon from "components/my_icon";
 import style from "../layout.less";
 import { CollapsedContext } from "components/context_manager";
+import Janni from "assets/images/janni.png";
 
-const { SubMenu } = Menu;
-const MenuList = [
-  { name: "首页", path: "/home", key: "100000", icon: "icon-shouye" },
-  { name: "编辑器", path: "/editor", key: "200000", icon: "icon-fuwenbenbianjiqi" },
-  {
-    name: "子菜单",
-    key: "102000",
-    icon: "icon-shujutongji",
-    children: [
-      { name: "列表1", path: "/list", key: "102001" },
-      { name: "列表2", path: "/list2", key: "102002" },
-    ],
-  },
-];
 export default () => {
   const { collapsed } = useContext(CollapsedContext);
   const routerLoaction = useLocation();
-  const routerHistory = useHistory();
+  const routerNavigate = useNavigate();
+  /* ========== 跳转 ========== */
+  const goto = useCallback(
+    (path) => {
+      routerNavigate(path);
+    },
+    [routerNavigate]
+  );
+
+  const MenuList = useMemo(
+    () => [
+      {
+        label: "首页",
+        path: "/home",
+        key: "100000",
+        icon: <MyIcon type="icon-shouye" />,
+        onClick: () => goto("/home"),
+      },
+      {
+        label: "编辑器",
+        path: "/editor",
+        key: "200000",
+        icon: <MyIcon type="icon-fuwenbenbianjiqi" />,
+        onClick: () => goto("/editor"),
+      },
+      {
+        label: "子菜单",
+        key: "102000",
+        icon: <MyIcon type="icon-shujutongji" />,
+        children: [
+          { label: "列表1", path: "/list", key: "102001" },
+          { label: "列表2", path: "/list2", key: "102002" },
+        ],
+      },
+    ],
+    [goto]
+  );
   const { defaultSelectedKeys, defaultOpenKeys } = useMemo(() => {
     let selectkey = [];
     let openkey = [];
@@ -49,11 +72,6 @@ export default () => {
     };
   }, [MenuList, routerLoaction.pathname]);
 
-  /* ========== 跳转 ========== */
-  const goto = (path) => {
-    routerHistory.push(path);
-  };
-
   return (
     <div className={`${style.menu_wrap} ${collapsed ? style.close_menu : ""}`}>
       <div className={style.menu_content}>
@@ -61,14 +79,14 @@ export default () => {
           {!collapsed ? (
             <h1>
               <Link to="/home">
-                <img src="https://static.253.com/images/logo_max.png" alt="logo" className={style.max_img} />
+                <img src={Janni} alt="logo" className={style.max_img} />
               </Link>
             </h1>
           ) : (
             <h1>
               <Link to="/home">
                 <span>
-                  <img src="https://static.253.com/images/logo_min.png" alt="logo" className={style.min_img} />
+                  {/* <img src="" alt="logo" className={style.min_img} /> */}
                 </span>
               </Link>
             </h1>
@@ -83,29 +101,8 @@ export default () => {
                 mode="inline"
                 theme="dark"
                 inlineCollapsed={collapsed}
-              >
-                {MenuList.map((item) => {
-                  if (!item.children || item.children == 0) {
-                    return (
-                      <Menu.Item key={item.key} icon={<MyIcon type={item.icon} />} onClick={() => goto(item.path)}>
-                        {item.name}
-                      </Menu.Item>
-                    );
-                  } else {
-                    return (
-                      <SubMenu key={item.key} icon={<MyIcon type={item.icon} />} title={item.name}>
-                        {item.children.map((child) => {
-                          return (
-                            <Menu.Item key={child.key} onClick={() => goto(child.path)}>
-                              {child.name}
-                            </Menu.Item>
-                          );
-                        })}
-                      </SubMenu>
-                    );
-                  }
-                })}
-              </Menu>
+                items={MenuList}
+              />
             </div>
           </div>
         </div>

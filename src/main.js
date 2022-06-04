@@ -1,9 +1,9 @@
 import React, { Suspense, useCallback, useEffect, useState } from "react";
 import { ConfigProvider } from "antd";
-import { render } from "react-dom";
+import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 import store from "./redux";
-import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import zhCN from "antd/es/locale/zh_CN";
 import PageLoad from "components/page_load";
 import { OutRouter } from "@/router";
@@ -19,24 +19,23 @@ const App = () => {
       <Provider store={store}>
         <Suspense fallback={<PageLoad />}>
           <BrowserRouter basename="/">
-            <Switch>
+            <Routes>
               {OutRouter.map((item) => {
-                return <Route component={item.component} path={item.path} key={item.key} exact={item.exact || false} />;
+                return <Route element={<item.component />} path={item.path} key={item.key} />;
               })}
-              <Layout />
               {/* <Route
                 path="/"
                 render={({ location }) => {
                   let token = localStorage.getItem("token");
-                  return token ? <Layout /> : <Redirect to="/login" />;
+                  return token ? <Layout /> : <Navigate to="/login" />;
                 }}
               /> */}
-            </Switch>
+            </Routes>
+            <Layout />
           </BrowserRouter>
         </Suspense>
       </Provider>
     </ConfigProvider>
   );
 };
-
-render(<App />, document.getElementById("app"));
+createRoot(document.getElementById("app")).render(<App />);

@@ -4,6 +4,7 @@ const ESLintPlugin = require("eslint-webpack-plugin");
 const AppConfig = require("../app.config");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 const isDev = process.env.NODE_ENV === "development";
 const sourceMap = false;//生不生map
 const resolve = (relatedPath) => {
@@ -34,6 +35,7 @@ module.exports = {
       components: resolve("../src/components"),
       pages: resolve("../src/pages"),
       assets: resolve("../src/assets"),
+      plugins: resolve("../src/plugins"),
       ...(AppConfig.alias || {}),
     },
   },
@@ -164,6 +166,7 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: "./src/index.html",
+      favicon: resolve("../src/favicon.ico"),
       hash: false, //防止相同缓存
       inject: true,
       filename: "index.html",
@@ -189,6 +192,14 @@ module.exports = {
       contextRegExp: /moment$/,
     }),
     new ESLintPlugin(),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: "public",
+          to: "public",
+        },
+      ],
+    }),
   ],
   stats: "errors-warnings",
   node: {

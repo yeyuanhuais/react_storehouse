@@ -1,4 +1,4 @@
-
+const path = require("path");
 module.exports = {
   root: true,
   env: {
@@ -8,7 +8,7 @@ module.exports = {
   },
   plugins: ["react", "react-hooks"],
   extends: ["eslint-config-ali/react"],
-  parser: "babel-eslint",
+  parser: "@babel/eslint-parser",
   globals: {
     Atomics: "readonly",
     window: true,
@@ -61,9 +61,13 @@ module.exports = {
     "no-unreachable": 1, //不能有无法执行的代码
     "max-len": "off",
     "guard-for-in": 0,
-
   },
   settings: {
     "import/ignore": ["node_modules"],
+    "import/resolver": {
+      webpack: {
+        config: path.join(__dirname, "./config/webpack.base.js"),
+      },
+    },
   },
 };

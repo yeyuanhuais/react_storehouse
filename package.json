@@ -1,7 +1,7 @@
 {
   "name": "cl253-cli",
   "version": "1.0.0",
-  "description": "创蓝react脚手架",
+  "description": "仓库",
   "scripts": {
     "dev": "webpack server --config config/webpack.dev.js  --node-env development --progress",
     "build": "webpack --config config/webpack.pro.js --node-env production --progress"
@@ -9,9 +9,12 @@
   "license": "ISC",
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
+    "@babel/eslint-parser": "^7.18.2",
     "antd": "^4.20.7",
     "axios": "^0.27.2",
+    "copy-webpack-plugin": "^11.0.0",
     "crypto-js": "^4.1.1",
+    "eslint-import-resolver-webpack": "^0.13.2",
     "moment": "^2.29.3",
     "nprogress": "^0.2.0",
     "react": "^18.1.0",
@@ -32,10 +35,9 @@
     "@babel/preset-react": "^7.17.12",
     "@babel/runtime-corejs2": "^7.18.3",
     "autoprefixer": "^10.4.7",
-    "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.5",
     "babel-plugin-import": "^1.13.5",
-    "chalk": "^5.0.1",
+    "chalk": "^4.1.2",
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^6.7.1",
     "css-minimizer-webpack-plugin": "^4.0.0",

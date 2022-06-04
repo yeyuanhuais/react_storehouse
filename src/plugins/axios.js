@@ -3,7 +3,7 @@ const { CancelToken } = axios;
 const cancelTokenArr = {};
 
 const _axios = axios.create({
-  baseURL: "/tigzz_api",
+  baseURL: "/api",
 });
 
 _axios.interceptors.request.use(

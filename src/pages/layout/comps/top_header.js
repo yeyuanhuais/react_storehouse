@@ -4,16 +4,17 @@ import style from "../layout.less";
 import { CollapsedContext } from "components/context_manager";
 import { Dropdown, Menu, Space } from "antd";
 import { useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Header_default from "assets/images/header_default.png";
 export default () => {
   const { collapsed, setCollapsed } = useContext(CollapsedContext);
   const userInfo = useSelector((state) => state.userInfo);
-  const routerHistory = useHistory();
+  const routerNavigate = useNavigate();
 
   //退出登录
   const handleGoOut = () => {
     localStorage.removeItem("token");
-    routerHistory.push("/login");
+    routerNavigate("/login");
   };
 
   const menu = (
@@ -37,18 +38,18 @@ export default () => {
             setCollapsed((item) => !item);
           }}
         >
-          {!collapsed ? <MyIcon type="icon-dingbushouqi" /> : <MyIcon type="icon-dingbuzhankai" />}
+          {!collapsed ? <MyIcon type="icon-shouqi" /> : <MyIcon type="icon-zhankai" />}
         </div>
         <div className={style.user_info}>
           <div className={style.user_img}>
-            <img src="https://static.253.com/images/header_default.png" alt="头像" />
+            <img src={Header_default} alt="头像" />
           </div>
-          {userInfo.username && (
+          {(userInfo.username || "默认") && (
             <div className={style.user_text}>
               <Dropdown placement="bottomRight" overlay={menu}>
                 <div>
-                  <h3>{userInfo.customerName}</h3>
-                  <p>{userInfo.username}</p>
+                  <h3>{userInfo.customerName || "主账号"}</h3>
+                  <p>{userInfo.username || "默认"}</p>
                 </div>
               </Dropdown>
             </div>

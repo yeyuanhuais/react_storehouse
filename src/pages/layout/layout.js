@@ -1,5 +1,5 @@
 import React, { useState, Suspense } from "react";
-import { Route, Redirect, Switch } from "react-router-dom";
+import { Route, Navigate, Routes } from "react-router-dom";
 import style from "./layout.less";
 import { InRouter } from "@/router";
 import Menu from "./comps/menu";
@@ -18,12 +18,12 @@ export default () => {
         <div className={`${style.child_wrap} ${collapsed ? style.close_menu : ""}`}>
           <div className={style.child_content}>
             <Suspense fallback={<MyNprogress />}>
-              <Switch>
+              <Routes>
                 {InRouter.map((item) => {
-                  return <Route component={item.component} path={item.path} key={item.key} exact={item.exact || false} />;
+                  return <Route element={<item.component />} path={item.path} key={item.key} />;
                 })}
-                <Route path="/" render={() => <Redirect to="/home" />} exact />
-              </Switch>
+                <Route path="/" element={<Navigate to="/home" />} />
+              </Routes>
             </Suspense>
           </div>
         </div>

@@ -4,7 +4,6 @@ export const OutRouter = [
   {
     path: "/login",
     key: "login",
-    exact: true,
     component: lazy(() => import("pages/login/login")),
   },
 ];
