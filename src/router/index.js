@@ -24,4 +24,9 @@ export const InRouter = [
     key: "editor",
     component: lazy(() => import("pages/editor")),
   },
+  {
+    path: "/video",
+    key: "edivideotor",
+    component: lazy(() => import("pages/video")),
+  },
 ];

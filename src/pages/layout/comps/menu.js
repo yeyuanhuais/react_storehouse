@@ -35,6 +35,13 @@ export default () => {
         onClick: () => goto("/editor"),
       },
       {
+        label: "视频播放器",
+        path: "/video",
+        key: "300000",
+        icon: <MyIcon type="icon-fuwenbenbianjiqi" />,
+        onClick: () => goto("/video"),
+      },
+      {
         label: "子菜单",
         key: "102000",
         icon: <MyIcon type="icon-shujutongji" />,
@@ -85,9 +92,7 @@ export default () => {
           ) : (
             <h1>
               <Link to="/home">
-                <span>
-                  {/* <img src="" alt="logo" className={style.min_img} /> */}
-                </span>
+                <span>{/* <img src="" alt="logo" className={style.min_img} /> */}</span>
               </Link>
             </h1>
           )}
