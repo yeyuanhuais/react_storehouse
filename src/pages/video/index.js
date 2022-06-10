@@ -7,7 +7,7 @@ export default () => {
   );
   const [percentage, setPercentage] = useState(0);
   const ffmpeg = createFFmpeg({
-    corePath: "/public/js/ffmpeg_core/ffmpeg-core.js",
+    corePath: "https://unpkg.com/@ffmpeg/core@0.8.5/dist/ffmpeg-core.js",
     log: true,
   });
   /* ======== 网址转码 ======== */
@@ -17,6 +17,7 @@ export default () => {
     if (!ffmpeg.isLoaded()) {
       await ffmpeg.load();
     }
+    await ffmpeg.load();
     ffmpeg.setProgress(({ ratio }) => {
       setPercentage(Math.floor(ratio * 100));
     });
