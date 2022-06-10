@@ -25,7 +25,7 @@ export default () => {
     await ffmpeg.run("-i", "name", "output.mp4");
     message.innerHTML = "Complete transcoding";
     const data = ffmpeg.FS("readFile", "output.mp4");
-    const video = document.getElementById("output-video");
+    const video = document.getElementById("output-video1");
     video.src = URL.createObjectURL(new Blob([data.buffer], { type: "video/mp4" }));
   };
   /* ======== 文件转码 ======== */
@@ -34,7 +34,9 @@ export default () => {
       const message = document.getElementById("message");
       const { name } = files[0];
       message.innerHTML = "Loading ffmpeg-core.js";
-      await ffmpeg.load();
+      if (!ffmpeg.isLoaded()) {
+        await ffmpeg.load();
+      }
       ffmpeg.setProgress(({ ratio }) => {
         setPercentage(Math.floor(ratio * 100));
       });
@@ -68,7 +70,7 @@ export default () => {
       <Button onClick={transcodeWebsite}>开始转码</Button>
       <br />
       <Spin tip={`解码中${percentage}%`} spinning={percentage > 0 && percentage < 100}>
-        <video id="output-video" controls style={{ width: 300 }}></video>
+        <video id="output-video1" controls style={{ width: 300 }}></video>
         <br />
         <p id="message"></p>
       </Spin>
