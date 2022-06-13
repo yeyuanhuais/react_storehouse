@@ -4,7 +4,7 @@ import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg";
 export default ({ value }) => {
   const [percentage, setPercentage] = useState(0);
   const ffmpeg = createFFmpeg({
-    corePath: "https://unpkg.com/@ffmpeg/core@0.8.5/dist/ffmpeg-core.js",
+    corePath: "/public/js/ffmpeg_core/ffmpeg-core.js",
     log: true,
   });
   /* ======== 网址转码 ======== */
