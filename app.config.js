@@ -1,5 +1,5 @@
 module.exports = {
-  title: "叶仓库",
+  title: "react仓库",
   appName: "cl253-cli", //根目录名称
   port: 3301,
   autoOpen: false, //启动本地是否自动重启,默认不启动

@@ -24,7 +24,7 @@ export default () => {
         label: "首页",
         path: "/home",
         key: "100000",
-        icon: <MyIcon type="icon-shouye" />,
+        icon: <MyIcon type="icon-home" />,
         onClick: () => goto("/home"),
       },
       {
@@ -38,7 +38,7 @@ export default () => {
         label: "视频播放器",
         path: "/video",
         key: "300000",
-        icon: <MyIcon type="icon-fuwenbenbianjiqi" />,
+        icon: <MyIcon type="icon-video" />,
         onClick: () => goto("/video"),
       },
       {

@@ -38,7 +38,7 @@ export default () => {
             setCollapsed((item) => !item);
           }}
         >
-          {!collapsed ? <MyIcon type="icon-shouqi" /> : <MyIcon type="icon-zhankai" />}
+          {!collapsed ? <MyIcon type="icon-shousuo" /> : <MyIcon type="icon-open" />}
         </div>
         <div className={style.user_info}>
           <div className={style.user_img}>

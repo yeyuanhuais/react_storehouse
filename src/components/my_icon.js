@@ -1,5 +1,5 @@
 import { createFromIconfontCN } from "@ant-design/icons";
 
 export default createFromIconfontCN({
-  scriptUrl: "//at.alicdn.com/t/font_3446831_sbo4kimdfao.js",
+  scriptUrl: require("assets/icon/iconfont.js"),
 });
