@@ -61,7 +61,7 @@ export default () => {
           ) : (
             <h1>
               <Link to="/home">
-                <span>{/* <img src="" alt="logo" className={style.min_img} /> */}</span>
+                <span><img src={Janni} alt="logo" className={style.min_img} /></span>
               </Link>
             </h1>
           )}
