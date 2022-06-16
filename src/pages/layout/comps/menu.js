@@ -1,14 +1,14 @@
-import React, { useCallback, useContext, useMemo } from "react";
+import React, { useCallback, useContext, useMemo, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Menu } from "antd";
 import style from "../layout.less";
 import { CollapsedContext } from "components/context_manager";
 import Janni from "assets/images/janni.png";
 import { InRouter } from "@/router";
-import { findCurNode } from "@/plugins/utils";
+import { findCurNode, findTreeSelect } from "@/plugins/utils";
 
 export default () => {
-  const { collapsed } = useContext(CollapsedContext);
+  const { collapsed, setBreadName } = useContext(CollapsedContext);
   const routerLoaction = useLocation();
   const routerNavigate = useNavigate();
 
@@ -45,6 +45,9 @@ export default () => {
     },
     [routerNavigate]
   );
+  useEffect(() => {
+    setBreadName(findTreeSelect(InRouter, (data) => data.key == defaultSelectedKeys, ""));
+  }, [defaultSelectedKeys, setBreadName]);
   return (
     <div className={`${style.menu_wrap} ${collapsed ? style.close_menu : ""}`}>
       <div className={style.menu_content}>
@@ -75,6 +78,7 @@ export default () => {
                 items={InRouter}
                 onClick={(item) => {
                   const itemMenu = findCurNode(InRouter, item.key, "key");
+                  setBreadName(findTreeSelect(InRouter, (data) => data.key == item.key, ""));
                   goto(itemMenu.path);
                 }}
               />

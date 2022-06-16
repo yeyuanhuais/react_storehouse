@@ -82,7 +82,7 @@ export const treeToArray = (tree) => {
     return res.concat(i, children && children.length ? treeToArray(children) : []);
   }, []);
 };
-  /**
+/**
  * @description 查找包含自身节点的父代节点
  * @param tree 需要查找的树
  * @param func 判断是否节点是否相等的函数
@@ -91,16 +91,25 @@ export const treeToArray = (tree) => {
  * @param path 结果数组 可以不传
  */
 export const findTreeSelect = (tree, func, keyField, isNode = false, path = []) => {
-  if (!tree) { return []; }
+  if (!tree) {
+    return [];
+  }
   for (const data of tree) {
-    isNode ? path.push(data) : path.push(data[keyField]);
-    if (func(data)) { return path; }
+    if (keyField) {
+      isNode ? path.push(data) : path.push(data[keyField]);
+    } else {
+      isNode ? path.push(data) : path.push(data);
+    }
+    if (func(data)) {
+      return path;
+    }
     if (data.children && data.children.length) {
       const findChildren = findTreeSelect(data.children, func, keyField, isNode, path);
-      if (findChildren.length) { return findChildren; }
+      if (findChildren.length) {
+        return findChildren;
+      }
     }
     path.pop();
   }
   return [];
 };
-

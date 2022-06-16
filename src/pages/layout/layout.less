@@ -1,5 +1,6 @@
 @nav_text_color: #c0c3cc;
 @header_h: 54px;
+@breadcrumb_h: 24px;
 .layout_wrap {
   min-width: 1280px;
   position: relative;
@@ -134,6 +135,23 @@
     }
   }
 }
+.top_header_breadcrumb {
+  position: fixed;
+  z-index: 20;
+  left: 200px;
+  top: @header_h + 5px;
+  right: 0;
+  height: 24px;
+  transition: all 0.3s;
+  .breadcrumb {
+    margin-left: 10px;
+    display: flex;
+    .label {
+      display: inline-block;
+      margin-left: 5px;
+    }
+  }
+}
 .user_info {
   display: flex;
   align-items: center;
@@ -168,13 +186,15 @@
   background-color: #f4f6f8;
   min-height: 100vh;
   padding-left: 200px;
-  padding-top: @header_h;
+  padding-top: @header_h + @breadcrumb_h + 10px;
   transition: all 0.3s;
   &.close_menu {
     padding-left: @menu-collapsed-width;
   }
   .child_content {
+    margin: 0 15px;
     padding: 15px;
     background-color: #ffffff;
+    // min-height: 50vh;
   }
 }

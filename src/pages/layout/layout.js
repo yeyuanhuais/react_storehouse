@@ -9,11 +9,12 @@ import MyNprogress from "components/my_nprogress";
 import { treeToArray } from "@/plugins/utils";
 export default () => {
   const [collapsed, setCollapsed] = useState(false);
+  const [breadName, setBreadName] = useState(false);
 
   return (
     <div className={`${style.layout_wrap}`}>
       <div className={style.content_wrap}>
-        <CollapsedContext.Provider value={{ collapsed, setCollapsed }}>
+        <CollapsedContext.Provider value={{ collapsed, setCollapsed, breadName, setBreadName }}>
           <Menu />
           <TopHeader />
         </CollapsedContext.Provider>
