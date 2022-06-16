@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { Input, Spin, Button } from "antd";
-import FfmpegFile from "./ffmpeg/file";
-import FfmpegWebsite from "./ffmpeg/website";
+import FfmpegFile from "./comps/file";
+import FfmpegWebsite from "./comps/website";
 export default () => {
   const [value, setValue] = useState(
     "https://qz-1300435011.cos.ap-guangzhou.myqcloud.com/1654760919181_SampleVideo_1280x720_1mb.mkv"

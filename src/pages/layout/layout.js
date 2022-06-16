@@ -6,8 +6,10 @@ import Menu from "./comps/menu";
 import TopHeader from "./comps/top_header";
 import { CollapsedContext } from "components/context_manager";
 import MyNprogress from "components/my_nprogress";
+import { treeToArray } from "@/plugins/utils";
 export default () => {
   const [collapsed, setCollapsed] = useState(false);
+
   return (
     <div className={`${style.layout_wrap}`}>
       <div className={style.content_wrap}>
@@ -19,8 +21,8 @@ export default () => {
           <div className={style.child_content}>
             <Suspense fallback={<MyNprogress />}>
               <Routes>
-                {InRouter.map((item) => {
-                  return <Route element={<item.component />} path={item.path} key={item.key} />;
+                {treeToArray(InRouter).map((item) => {
+                  return item.path && <Route path={item.path} element={<item.component />} key={item.key} />;
                 })}
                 <Route path="/" element={<Navigate to="/home" />} />
               </Routes>
