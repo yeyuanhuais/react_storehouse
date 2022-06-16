@@ -27,6 +27,12 @@ export const InRouter = [
         key: "200001",
         component: lazy(() => import("pages/editor/slate")),
       },
+      {
+        label: "手机号码编辑器",
+        path: "/editor/number",
+        key: "200002",
+        component: lazy(() => import("pages/editor/number")),
+      },
     ],
   },
   {

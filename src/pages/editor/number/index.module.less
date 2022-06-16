@@ -1,0 +1,181 @@
+
+/* ==========手动添加样式 ========== */
+.manual_total {
+  line-height: 20px;
+  font-size: 14px;
+  margin-bottom: 10px;
+  .number {
+    font-family: "ennumber";
+  }
+}
+.textarea_wrap {
+  position: relative;
+  background-color: #fff;
+  border: 1px solid @border-color-base;
+  border-radius: 2px;
+  transition: all 0.3s;
+  min-height: 150px;
+  max-height: 300px;
+  overflow: auto;
+  cursor: text;
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  padding: 6px 10px;
+  display: flex;
+  flex-flow: row wrap;
+  align-content: flex-start;
+  align-items: flex-start;
+  &.focused {
+    border-color: #6395ff;
+    border-right-width: 1px !important;
+    outline: 0;
+    box-shadow: 0 0 0 2px rgba(58, 114, 255, 0.2);
+  }
+  .input_wrap {
+    position: relative;
+    width: auto;
+    display: block;
+    min-width: 100px;
+    margin: 2px;
+    flex: 1;
+    input {
+      border: none;
+      outline: none;
+      height: 26px;
+      padding: 8px 0;
+      width: 100%;
+      background-color: transparent;
+    }
+  }
+  &.placeholder::before {
+    content: "号码之间用空格或者回车键隔开";
+    position: absolute;
+    top: 8px;
+    left: 14px;
+    line-height: 28px;
+    color: #c0c3cc;
+  }
+}
+.phones_s {
+  display: block;
+  background: #f4f6f8;
+  border: 1px solid #ebedf0;
+  border-radius: 2px;
+  height: 26px;
+  line-height: 26px;
+  box-sizing: border-box;
+  padding: 0 32px 0 8px;
+  margin: 2px;
+  position: relative;
+  .closebtn {
+    width: 16px;
+    height: 16px;
+    color: #c0c3cc;
+    cursor: pointer;
+    position: absolute;
+    right: 8px;
+    top: 4px;
+    line-height: 14px;
+    text-align: center;
+    box-sizing: border-box;
+    &:hover {
+      color: #999;
+    }
+  }
+  &.error {
+    background: #fee7e9;
+    border: 1px solid #fdc0c5;
+    color: #f68e96;
+    .closebtn {
+      color: #ff848e;
+      &:hover {
+        color: #fe5663;
+      }
+    }
+  }
+}
+.phone_status_wrap {
+  background: #fff;
+  box-shadow: 0px 2px 6px 0px rgba(129, 154, 173, 0.28);
+  border-radius: 2px;
+  padding: 18px 20px;
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  line-height: 22px;
+  .label {
+    color: #252a3d;
+    vertical-align: middle;
+  }
+  .number {
+    font-size: 20px;
+    color: #252a3d;
+    font-family: "ennumber";
+    vertical-align: middle;
+    margin-left: 8px;
+  }
+  .action {
+    a {
+      color: @text-color;
+      padding: 0 10px;
+      display: inline-block;
+      position: relative;
+      &:first-child {
+        &::after {
+          content: "";
+          background-color: #dfe1e5;
+          height: 12px;
+          width: 1px;
+          position: absolute;
+          right: 0px;
+          top: 5px;
+        }
+      }
+      &:hover {
+        color: @primary-color;
+      }
+    }
+  }
+  .variable_status {
+    margin: 0;
+    padding: 0;
+    li {
+      list-style: none;
+      margin-right: 10px;
+      float: left;
+      min-width: 110px;
+      text-align: left;
+      .label {
+        color: @text-color;
+        font-size: 12px;
+        line-height: 18px;
+      }
+      .number {
+        margin-top: 3px;
+        font-size: 24px;
+        color: #252a3d;
+        line-height: 28px;
+        margin-left: 0;
+      }
+    }
+  }
+  .variable_status_action {
+    margin: 0;
+    padding: 0;
+    li {
+      list-style: none;
+      text-align: right;
+      a {
+        &::after {
+          display: none;
+        }
+      }
+      .look {
+        a {
+          color: @primary-color;
+        }
+      }
+    }
+  }
+}
+
