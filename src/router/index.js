@@ -48,4 +48,23 @@ export const InRouter = [
       },
     ],
   },
+  {
+    label: "颜色选择器",
+    key: "400000",
+    icon: <MyIcon type="icon-yanseku" />,
+    children: [
+      {
+        label: "颜色选择器一",
+        path: "/color-pick/one",
+        key: "400001",
+        component: lazy(() => import("pages/color_pick/one/index.tsx")),
+      },
+      {
+        label: "颜色选择器二",
+        path: "/color-pick/two",
+        key: "400002",
+        component: lazy(() => import("pages/color_pick/two/index.tsx")),
+      },
+    ],
+  },
 ];

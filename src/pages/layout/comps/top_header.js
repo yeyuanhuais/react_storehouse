@@ -59,16 +59,6 @@ export default () => {
           </div>
         </div>
       </div>
-      <div className={`${style.top_header_breadcrumb} ${collapsed ? style.close_menu : ""}`}>
-        <Breadcrumb className={style.breadcrumb}>
-          {(breadName || []).map((item) => (
-            <Breadcrumb.Item key={item.key}>
-              {item.icon}
-              <span className={style.label}>{item.label}</span>
-            </Breadcrumb.Item>
-          ))}
-        </Breadcrumb>
-      </div>
     </>
   );
 };

@@ -7,6 +7,7 @@ import TopHeader from "./comps/top_header";
 import { CollapsedContext } from "components/context_manager";
 import MyNprogress from "components/my_nprogress";
 import { treeToArray } from "@/plugins/utils";
+import { Breadcrumb } from "antd";
 export default () => {
   const [collapsed, setCollapsed] = useState(false);
   const [breadName, setBreadName] = useState(false);
@@ -19,6 +20,16 @@ export default () => {
           <TopHeader />
         </CollapsedContext.Provider>
         <div className={`${style.child_wrap} ${collapsed ? style.close_menu : ""}`}>
+          <div className={`${style.top_header_breadcrumb} ${collapsed ? style.close_menu : ""}`}>
+            <Breadcrumb className={style.breadcrumb}>
+              {(breadName || []).map((item) => (
+                <Breadcrumb.Item key={item.key}>
+                  {item.icon}
+                  <span className={style.label}>{item.label}</span>
+                </Breadcrumb.Item>
+              ))}
+            </Breadcrumb>
+          </div>
           <div className={style.child_content}>
             <Suspense fallback={<MyNprogress />}>
               <Routes>

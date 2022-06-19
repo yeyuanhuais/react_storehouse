@@ -1,4 +1,6 @@
 const path = require("path");
+const typescriptEslintRecommended = require("@typescript-eslint/eslint-plugin").configs.recommended;
+
 module.exports = {
   root: true,
   env: {
@@ -17,6 +19,7 @@ module.exports = {
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
+      legacyDecorators: true,
     },
     ecmaVersion: 6,
     sourceType: "module",
@@ -70,4 +73,18 @@ module.exports = {
       },
     },
   },
+  overrides: [
+    {
+      files: ["src/**/*.ts", "src/**/*.tsx"],
+      parser: "@typescript-eslint/parser",
+      parserOptions: {
+        sourceType: "module",
+        project: "./tsconfig.json",
+      },
+      plugins: ["@typescript-eslint"],
+      rules: Object.assign(typescriptEslintRecommended.rules, {
+        // other customize rules
+      }),
+    },
+  ],
 };

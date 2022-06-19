@@ -6,11 +6,22 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const isDev = process.env.NODE_ENV === "development";
-const sourceMap = false;//生不生map
+const sourceMap = false; //生不生map
 const resolve = (relatedPath) => {
   return path.join(__dirname, relatedPath);
 };
-
+const minify = {
+  removeComments: true,
+  collapseWhitespace: true,
+  removeRedundantAttributes: true,
+  useShortDoctype: true,
+  removeEmptyAttributes: true,
+  removeStyleLinkTypeAttributes: true,
+  keepClosingSlash: true,
+  minifyJS: true,
+  minifyCSS: true,
+  minifyURLs: true,
+};
 module.exports = {
   context: resolve("../"),
   entry: {
@@ -28,7 +39,7 @@ module.exports = {
   },
 
   resolve: {
-    extensions: [".js", ".jsx", ".ts", ".less", ".json"],
+    extensions: [".js", ".jsx", ".ts", ".tsx", ".less", ".json"],
     modules: ["../node_modules"],
     alias: {
       "@": resolve("../src"),
@@ -44,57 +55,63 @@ module.exports = {
       {
         test: /\.(ts|js)x?$/,
         exclude: /(node_modules|bower_components)/,
-        use: [{
-          loader: "babel-loader",
-          options: {
-            presets: [
-              ["@babel/preset-env",
-                {
-                  useBuiltIns: "usage", // babel 就可以按需加载 polyfill，并且不需要手动引入 @babel/polyfill：
-                  targets: "> 1%,last 2 versions,not ie <= 11",
-                  corejs: 2,
-                },
+        use: [
+          {
+            loader: "babel-loader",
+            options: {
+              presets: [
+                [
+                  "@babel/preset-env",
+                  {
+                    useBuiltIns: "usage", // babel 就可以按需加载 polyfill，并且不需要手动引入 @babel/polyfill：
+                    targets: "> 1%,last 2 versions,not ie <= 11",
+                    corejs: 2,
+                  },
+                ],
+                "@babel/preset-react",
               ],
-              "@babel/preset-react",
-            ],
-            plugins: [
-              [
-                "@babel/plugin-transform-runtime",
-                {
-                  absoluteRuntime: false,
-                  corejs: 2,
-                  helpers: true,
-                  regenerator: true,
-                  useESModules: false,
-                },
+              plugins: [
+                [
+                  "@babel/plugin-transform-runtime",
+                  {
+                    absoluteRuntime: false,
+                    corejs: 2,
+                    helpers: true,
+                    regenerator: true,
+                    useESModules: false,
+                  },
+                ],
+                [
+                  "@babel/plugin-proposal-decorators",
+                  {
+                    legacy: true,
+                  },
+                ],
+                "@babel/plugin-proposal-class-properties",
+                [
+                  "import",
+                  {
+                    libraryName: "antd",
+                    libraryDirectory: "es",
+                    style: true, // `style: true` 会加载 less 文件
+                  },
+                ],
               ],
-              [
-                "@babel/plugin-proposal-decorators",
-                {
-                  legacy: true,
-                },
-              ],
-              "@babel/plugin-proposal-class-properties",
-              [
-                "import",
-                {
-                  libraryName: "antd",
-                  libraryDirectory: "es",
-                  style: true, // `style: true` 会加载 less 文件
-                },
-              ],
-            ],
+            },
           },
-        }],
+          {
+            loader: "ts-loader",
+            options: {
+              transpileOnly: true,
+              happyPackMode: false,
+            },
+          },
+        ],
       },
       {
         test: /\.(css|less)$/i,
         use: [
-          isDev
-            ? "style-loader"
-            : {
-              loader: MiniCssExtractPlugin.loader,
-            },
+          isDev ? "style-loader" : { loader: MiniCssExtractPlugin.loader },
           {
             loader: "css-loader",
             options: {
@@ -174,18 +191,7 @@ module.exports = {
         title: AppConfig.title || "",
         isdev: process.env.NODE_ENV === "development",
       },
-      minify: isDev ? {} : {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeRedundantAttributes: true,
-        useShortDoctype: true,
-        removeEmptyAttributes: true,
-        removeStyleLinkTypeAttributes: true,
-        keepClosingSlash: true,
-        minifyJS: true,
-        minifyCSS: true,
-        minifyURLs: true,
-      },
+      minify: isDev ? {} : { minify },
     }),
     new webpack.IgnorePlugin({
       resourceRegExp: /^\.\/locale$/,
