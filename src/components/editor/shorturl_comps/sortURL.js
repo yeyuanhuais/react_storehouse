@@ -10,17 +10,12 @@ export default ({ visible, onCreate, onCancel }) => {
       title="插入链接"
       onCancel={onCancel}
       onOk={() => {
-        form
-          .validateFields()
-          .then((values) => {
-            onCreate({
-              url: values.url,
-            });
-            form.resetFields();
-          })
-          .catch((info) => {
-            console.log("Validate Failed:", info);
+        form.validateFields().then((values) => {
+          onCreate({
+            url: values.url,
           });
+          form.resetFields();
+        });
       }}
     >
       <div className={style.sortUrlWrap}>

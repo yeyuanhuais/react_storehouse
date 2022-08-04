@@ -23,17 +23,20 @@ const RemoveEle = ({ headItem, setSelectedKeys, selectedKeys = [], confirm, clea
   }, [list, headItem.remoteParams]);
 
   /* ============== 远程获得数据 ============== */
-  const getRemoveData = useCallback((keyword) => {
-    let params = {};
-    setFetching(true);
-    params[headItem.remoteParams.key] = keyword;
-    axios.post(headItem.remoteParams.url || "", params).then((res) => {
-      setFetching(false);
-      if (res.code === "000000") {
-        setList(res.data.list || res.data);
-      }
-    });
-  }, [headItem.remoteParams.key, headItem.remoteParams.url]);
+  const getRemoveData = useCallback(
+    (keyword) => {
+      let params = {};
+      setFetching(true);
+      params[headItem.remoteParams.key] = keyword;
+      axios.post(headItem.remoteParams.url || "", params).then((res) => {
+        setFetching(false);
+        if (res.code === "000000") {
+          setList(res.data.list || res.data);
+        }
+      });
+    },
+    [headItem.remoteParams.key, headItem.remoteParams.url]
+  );
 
   useEffect(() => {
     getRemoveData("");
@@ -104,11 +107,7 @@ export default (props) => {
     let hasSetHeader = props.columns.some((item) => item.setHeader); //判断是否有设置表头的属性
     if (setTableKey && localStorage.getItem(setTableKey) && hasSetHeader) {
       //如果有表头名称，就查看是否设置过localStorage
-      try {
-        defaultTableHeader = JSON.parse(localStorage.getItem(setTableKey));
-      } catch (error) {
-        console.log("%c error", "font-size:13px; background:pink; color:#bf2c9f;", error);
-      }
+      defaultTableHeader = JSON.parse(localStorage.getItem(setTableKey));
     }
     selectColums(defaultTableHeader);
   }, [props.columns, headColumns, setTableKey]);
@@ -338,20 +337,17 @@ export default (props) => {
         {...tableProps}
         className={`modal_style ${tableProps.className ? tableProps.className : ""}`}
         pagination={
-          tableProps.pagination
-            ? {
-              current: tableProps.pagination && tableProps.pagination.page_no ? tableProps.pagination.page_no : 1,
-              pageSize:
-                  tableProps.pagination && tableProps.pagination.page_size ? tableProps.pagination.page_size : 10,
-              total: tableProps.pagination && tableProps.pagination.total ? tableProps.pagination.total : 0,
-              showQuickJumper: true,
-              showSizeChanger: true,
-              showTotal(total, range) {
-                return `共 ${total} 条数据`;
-              },
-              showTitle: true,
-            }
-            : false
+          tableProps.pagination && {
+            current: tableProps.pagination && tableProps.pagination.page_no ? tableProps.pagination.page_no : 1,
+            pageSize: tableProps.pagination && tableProps.pagination.page_size ? tableProps.pagination.page_size : 10,
+            total: tableProps.pagination && tableProps.pagination.total ? tableProps.pagination.total : 0,
+            showQuickJumper: true,
+            showSizeChanger: true,
+            showTotal(total, range) {
+              return `共 ${total} 条数据`;
+            },
+            showTitle: true,
+          }
         }
         onChange={onChangeTable}
       />

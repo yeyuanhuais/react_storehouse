@@ -8,10 +8,11 @@ export interface Coordinate {
   left: number;
 }
 
+type CallbackFunction = (event?: Event, coordinate?: Coordinate) => void;
 interface Props {
-  start?: Function;
-  drag?: Function;
-  end?: Function;
+  start?: CallbackFunction;
+  drag?: CallbackFunction;
+  end?: CallbackFunction;
 }
 
 // 配置项
@@ -154,7 +155,7 @@ export class Draggable {
   destroy() {
     unbindEvents.call(this);
     this._$el = null;
-    this._handlers = null;
+    this._handlers = {};
   }
 }
 

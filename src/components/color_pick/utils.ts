@@ -1,4 +1,4 @@
-export const $ = (selector: string, context: HTMLElement | Document = document): HTMLElement =>
+export const $ = (selector: string, context: HTMLElement | Document = document): HTMLElement | null =>
   context.querySelector(selector);
 
 // addEventListener

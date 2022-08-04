@@ -10,7 +10,6 @@ require("./index.less");
 const UI_NAME = "mo-color-picker";
 
 type ColorFormat = "hsl" | "hsv" | "hex" | "rgb";
-
 interface Colors {
   h: number;
   s: number;
@@ -18,6 +17,7 @@ interface Colors {
   a: number;
 }
 
+type CallbackFunction = (color?: any, colors?: Colors) => void;
 interface Props {
   // 绑定值
   value?: string;
@@ -26,15 +26,15 @@ interface Props {
   // 支持透明度？
   alpha?: boolean;
   // 回调
-  change?: Function;
+  change?: CallbackFunction;
 }
 
 // default config
 const defaults: Props = {
-  value: null,
+  value: "",
   format: "rgb",
   alpha: false,
-  change: (color: string, colors?: Colors) => {},
+  change: () => {},
 };
 
 // selectors
@@ -292,20 +292,20 @@ export class ColorPicker {
   constructor(wrapper: HTMLElement, options?: Props) {
     this._states = Object.create(null);
     this._props = Object.assign({}, defaults, options);
-    this._states.$wrap = wrapper;
+    this._states.$wrap = wrapper; //外层父级容器
     render.call(this);
-    value2Colors.call(this, this._props.value, true);
+    value2Colors.call(this, this._props.value || "", true);
   }
 
   /**
    * 手动更新值
    * @public
-   * @param {(Colors | null)} value
+   * @param {(string)} value
    * @memberof ColorPicker
    */
-  setValue(value: Colors | null) {
+  setValue(value: string) {
     if (value === null) {
-      value2Colors.call(this, null, true);
+      value2Colors.call(this, "", true);
     } else if (value) {
       value2Colors.call(this, value);
     }
@@ -351,8 +351,8 @@ export class ColorPicker {
   destroy() {
     unbindEvents.call(this);
     this._states.$el.parentNode.removeChild(this._states.$el);
-    this._props = null;
-    this._states = null;
+    this._props = {};
+    this._states = {};
   }
 }
 

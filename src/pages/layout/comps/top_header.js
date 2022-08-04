@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 import Header_default from "assets/images/header_default.png";
 export default () => {
   const { collapsed, setCollapsed, breadName } = useContext(CollapsedContext);
-  console.log("%c breadName", "font-size:13px; background:pink; color:#bf2c9f;", breadName);
   const userInfo = useSelector((state) => state.userInfo);
   const routerNavigate = useNavigate();
 

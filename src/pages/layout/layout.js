@@ -42,6 +42,9 @@ export default () => {
           </div>
         </div>
       </div>
+      <a style={{ color: "#FFF" }} href="https://beian.miit.gov.cn/" target="_blank" rel="noreferrer">
+        闽ICP备2021014833号-1
+      </a>
     </div>
   );
 };

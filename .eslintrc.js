@@ -84,6 +84,7 @@ module.exports = {
       plugins: ["@typescript-eslint"],
       rules: Object.assign(typescriptEslintRecommended.rules, {
         // other customize rules
+        "@typescript-eslint/no-explicit-any": "off",
       }),
     },
   ],
