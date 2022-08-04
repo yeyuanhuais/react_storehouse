@@ -40,11 +40,16 @@ export default () => {
               </Routes>
             </Suspense>
           </div>
+          <a
+            style={{ color: "#000", width: "100%" }}
+            href="https://beian.miit.gov.cn/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            闽ICP备2021014833号-1
+          </a>
         </div>
       </div>
-      <a style={{ color: "#000" }} href="https://beian.miit.gov.cn/" target="_blank" rel="noreferrer">
-        闽ICP备2021014833号-1
-      </a>
     </div>
   );
 };
