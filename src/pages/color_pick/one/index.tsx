@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import ColorPicker from "components/color_pick/index";
+import ColorPicker from "components/color_pick";
 const FORMATS = ["hsl", "hsv", "hex", "rgb"];
 
 // 默认hsv值

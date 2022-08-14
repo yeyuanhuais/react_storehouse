@@ -9,34 +9,34 @@ import { findCurNode, findTreeSelect } from "@/plugins/utils";
 
 export default () => {
   const { collapsed, setBreadName } = useContext(CollapsedContext);
-  const routerLoaction = useLocation();
+  const routerLocation = useLocation();
   const routerNavigate = useNavigate();
 
   const { defaultSelectedKeys, defaultOpenKeys } = useMemo(() => {
-    let selectkey = [];
-    let openkey = [];
+    let selectKey = [];
+    let openKey = [];
     for (let i = 0; i < InRouter.length; i++) {
       let item = InRouter[i];
-      if (routerLoaction.pathname.indexOf(item.path) === 0) {
-        selectkey.push(item.key);
+      if (routerLocation.pathname.indexOf(item.path) === 0) {
+        selectKey.push(item.key);
         break;
       }
       if (item.children && item.children.length > 0) {
         for (let y = 0; y < item.children.length; y++) {
           const child = item.children[y];
-          if (routerLoaction.pathname.indexOf(child.path) === 0) {
-            selectkey.push(child.key);
-            openkey.push(item.key);
+          if (routerLocation.pathname.indexOf(child.path) === 0) {
+            selectKey.push(child.key);
+            openKey.push(item.key);
             break;
           }
         }
       }
     }
     return {
-      defaultSelectedKeys: selectkey,
-      defaultOpenKeys: openkey,
+      defaultSelectedKeys: selectKey,
+      defaultOpenKeys: openKey,
     };
-  }, [routerLoaction.pathname]);
+  }, [routerLocation.pathname]);
 
   /* ========== 跳转 ========== */
   const goto = useCallback(
@@ -61,7 +61,9 @@ export default () => {
           ) : (
             <h1>
               <Link to="/home">
-                <span><img src={Janni} alt="logo" className={style.min_img} /></span>
+                <span>
+                  <img src={Janni} alt="logo" className={style.min_img} />
+                </span>
               </Link>
             </h1>
           )}
@@ -85,6 +87,14 @@ export default () => {
             </div>
           </div>
         </div>
+        <a
+          style={{ color: "#fff", width: "100%", textAlign: "center" }}
+          href="https://beian.miit.gov.cn/"
+          target="_blank"
+          rel="noreferrer"
+        >
+          闽ICP备2021014833号-1
+        </a>
       </div>
     </div>
   );

@@ -69,6 +69,7 @@ module.exports = {
                   },
                 ],
                 "@babel/preset-react",
+                "@babel/preset-typescript",
               ],
               plugins: [
                 [
@@ -99,13 +100,13 @@ module.exports = {
               ],
             },
           },
-          {
-            loader: "ts-loader",
-            options: {
-              transpileOnly: true,
-              happyPackMode: false,
-            },
-          },
+          // {
+          //   loader: "ts-loader",
+          //   options: {
+          //     transpileOnly: true,
+          //     happyPackMode: false,
+          //   },
+          // },
         ],
       },
       {
@@ -182,8 +183,8 @@ module.exports = {
       "process.env.title": JSON.stringify(AppConfig.title),
     }),
     new HtmlWebpackPlugin({
-      template: "./src/index.html",
-      favicon: resolve("../src/favicon.ico"),
+      template: "./public/index.html",
+      favicon: resolve("../public/favicon.ico"),
       hash: false, //防止相同缓存
       inject: true,
       filename: "index.html",

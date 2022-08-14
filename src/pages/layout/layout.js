@@ -1,12 +1,9 @@
-import React, { useState, Suspense } from "react";
-import { Route, Navigate, Routes } from "react-router-dom";
+import React, { useState } from "react";
+import { Outlet } from "react-router-dom";
 import style from "./layout.less";
-import { InRouter } from "@/router";
 import Menu from "./comps/menu";
 import TopHeader from "./comps/top_header";
 import { CollapsedContext } from "components/context_manager";
-import MyNprogress from "components/my_nprogress";
-import { treeToArray } from "@/plugins/utils";
 import { Breadcrumb } from "antd";
 export default () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -31,23 +28,8 @@ export default () => {
             </Breadcrumb>
           </div>
           <div className={style.child_content}>
-            <Suspense fallback={<MyNprogress />}>
-              <Routes>
-                {treeToArray(InRouter).map((item) => {
-                  return item.path && <Route path={item.path} element={<item.component />} key={item.key} />;
-                })}
-                <Route path="/" element={<Navigate to="/home" />} />
-              </Routes>
-            </Suspense>
+            <Outlet />
           </div>
-          <a
-            style={{ color: "#000", width: "100%" }}
-            href="https://beian.miit.gov.cn/"
-            target="_blank"
-            rel="noreferrer"
-          >
-            闽ICP备2021014833号-1
-          </a>
         </div>
       </div>
     </div>
