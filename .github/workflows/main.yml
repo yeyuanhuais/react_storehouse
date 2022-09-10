@@ -1,0 +1,29 @@
+name: Deploy #action名称
+on: [push] #在推送的时候运行此action
+
+jobs:
+  build_job:
+    runs-on: ubuntu-latest  #运行环境
+    name: deploy
+    environment: production
+    steps:
+      # check out the repository
+      - name: Checkout    
+        uses: actions/checkout@v2    #这里使用了github官方提供的action,checkout项目到虚拟机上
+
+
+      - name: install
+        run: npm install
+
+      - name: build
+        run: npm run build
+        
+      - name: copy file via ssh password
+        uses: appleboy/scp-action@master
+        with:
+          host: "yyh28.top"
+          username: "deploy"
+          password: ${{ secrets.DEPLOY_PASSWORD }}
+          port: 22
+          source: "dist/*"
+          target: "/Runtime/storehouse/"
