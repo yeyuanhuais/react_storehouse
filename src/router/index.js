@@ -62,15 +62,15 @@ export const InRouter = [
     ],
   },
   {
-    label: "代码生成器",
+    label: "流程图",
     key: "500000",
     icon: <MyIcon type="icon-yanseku" />,
     children: [
       {
-        label: "列表页",
-        path: "/code-generator/list",
+        label: "logic-flow",
+        path: "/flow_chart/logic",
         key: "500001",
-        component: lazy(() => import("pages/code_generator/list")),
+        component: lazy(() => import("pages/flow_chart/logic_flow")),
       },
     ],
   },

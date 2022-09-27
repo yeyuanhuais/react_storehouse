@@ -18,15 +18,22 @@ export default () => {
   };
 
   const menu = (
-    <Menu style={{ marginTop: "6px" }}>
-      <Menu.Item key={0}>
-        <div onClick={handleGoOut}>
-          <Space>
-            <MyIcon type="icon-tuichu" />
-            退出登录
-          </Space>
-        </div>
-      </Menu.Item>
+    <Menu
+      style={{ marginTop: "6px" }}
+      items={[
+        {
+          key: "1",
+          label: (
+            <div onClick={handleGoOut}>
+              <Space>
+                <MyIcon type="icon-tuichu" />
+                退出登录
+              </Space>
+            </div>
+          ),
+        },
+      ]}
+    >
     </Menu>
   );
   return (

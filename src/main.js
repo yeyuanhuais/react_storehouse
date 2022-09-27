@@ -14,7 +14,6 @@ import Layout from "pages/layout";
 import MyNprogress from "components/my_nprogress";
 import { treeToArray } from "@/plugins/utils";
 moment.locale("zh-cn");
-
 const App = () => {
   /* ========== 懒加载组件控制 ========== */
   const SuspenseComps = (Comps) => {

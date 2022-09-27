@@ -42,7 +42,7 @@
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx"
-  ],
+, "src/redux/hook/hooks.js", "src/pages/flow_chart/Bpmn/util/idUtil.js", "src/pages/flow_chart/Bpmn/constant/testXML.js", "src/pages/flow_chart/Bpmn/constant/emptyXML.js", "src/pages/flow_chart/Bpmn/constant/constants.js"  ],
   "exclude": [
     "node_modules"
   ],

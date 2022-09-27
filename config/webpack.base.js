@@ -174,6 +174,17 @@ module.exports = {
           filename: "fonts/[hash][ext][query]",
         },
       },
+      {
+        test: /\.bpmn$/i,
+        use: [
+          {
+            loader: "raw-loader",
+            options: {
+              esModule: false,
+            },
+          },
+        ],
+      },
     ],
   },
   plugins: [
