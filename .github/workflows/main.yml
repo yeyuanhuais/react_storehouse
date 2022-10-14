@@ -25,5 +25,5 @@ jobs:
           username: "deploy"
           password: ${{ secrets.DEPLOY_PASSWORD }}
           port: 22
-          source: "dist/*"
+          source: "./dist/*"
           target: "/Runtime/storehouse/"
