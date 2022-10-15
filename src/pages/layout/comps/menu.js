@@ -3,7 +3,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Menu } from "antd";
 import style from "../layout.less";
 import { CollapsedContext } from "components/context_manager";
-import Janni from "assets/images/janni.png";
+import Janni from "assets/images/yvonne.png";
 import { InRouter } from "@/router";
 import { findCurNode, findTreeSelect } from "@/plugins/utils";
 
