@@ -7,6 +7,7 @@
     "build": "webpack --config config/webpack.pro.js --node-env production --progress"
   },
   "license": "ISC",
+  "homepage": "/react_storehouse",
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@babel/eslint-parser": "^7.19.1",
