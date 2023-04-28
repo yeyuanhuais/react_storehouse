@@ -74,4 +74,17 @@ export const InRouter = [
       },
     ],
   },
+  {
+    label: "数据处理",
+    key: "600000",
+    icon: <MyIcon type="icon-yanseku" />,
+    children: [
+      {
+        label: "data_change",
+        path: "/data_change",
+        key: "500001",
+        component: lazy(() => import("pages/data_change")),
+      },
+    ],
+  },
 ];
