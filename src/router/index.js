@@ -46,6 +46,12 @@ export const InRouter = [
         key: "300001",
         component: lazy(() => import("pages/video/ffmpeg")),
       },
+      {
+        label: "萤石云ezuikit",
+        path: "/video/ezuikit",
+        key: "300002",
+        component: lazy(() => import("pages/video/ezuikit")),
+      },
     ],
   },
   {
@@ -82,7 +88,7 @@ export const InRouter = [
       {
         label: "data_change",
         path: "/data_change",
-        key: "500001",
+        key: "600001",
         component: lazy(() => import("pages/data_change")),
       },
     ],
