@@ -52,12 +52,12 @@ export default () => {
         <div className="demo">
           <h2>视频模式使用示例：</h2>
           <div
-            id="video-container"
             onDoubleClick={() => {
               player.fullScreen();
             }}
-            style={{ width: 600, height: 600 }}
-          />
+          >
+            <div id="video-container" style={{ width: 600, height: 600 }} />
+          </div>
           {player && (
             <div>
               <button onClick={() => stop()}>stop</button>
