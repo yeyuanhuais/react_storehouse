@@ -51,7 +51,13 @@ export default () => {
         <h2>萤石云播放</h2>
         <div className="demo">
           <h2>视频模式使用示例：</h2>
-          <div id="video-container" style={{ width: 600, height: 600 }}></div>
+          <div
+            id="video-container"
+            onDoubleClick={() => {
+              player.fullScreen();
+            }}
+            style={{ width: 600, height: 600 }}
+          />
           {player && (
             <div>
               <button onClick={() => stop()}>stop</button>
